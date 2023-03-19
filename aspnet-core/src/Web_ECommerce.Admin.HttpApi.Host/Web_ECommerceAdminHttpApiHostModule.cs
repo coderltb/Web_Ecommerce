@@ -80,10 +80,10 @@ public class Web_ECommerceAdminHttpApiHostModule : AbpModule
                         $"..{Path.DirectorySeparatorChar}Web_ECommerce.Domain"));
                 options.FileSets.ReplaceEmbeddedByPhysical<Web_ECommerceAdminApplicationContractsModule>(
                     Path.Combine(hostingEnvironment.ContentRootPath,
-                        $"..{Path.DirectorySeparatorChar}Web_ECommerce.Application.Contracts"));
+                        $"..{Path.DirectorySeparatorChar}Web_ECommerce.Admin.Application.Contracts"));
                 options.FileSets.ReplaceEmbeddedByPhysical<Web_ECommerceAdminApplicationModule>(
                     Path.Combine(hostingEnvironment.ContentRootPath,
-                        $"..{Path.DirectorySeparatorChar}Web_ECommerce.Application"));
+                        $"..{Path.DirectorySeparatorChar}Web_ECommerce.Admin.Application"));
             });
         }
     }
@@ -103,7 +103,7 @@ public class Web_ECommerceAdminHttpApiHostModule : AbpModule
             {
                 options.Authority = configuration["AuthServer:Authority"];
                 options.RequireHttpsMetadata = Convert.ToBoolean(configuration["AuthServer:RequireHttpsMetadata"]);
-                options.Audience = "Web_ECommerce";
+                options.Audience = "Web_ECommerce.Admin";
             });
     }
 
@@ -113,11 +113,11 @@ public class Web_ECommerceAdminHttpApiHostModule : AbpModule
             configuration["AuthServer:Authority"],
             new Dictionary<string, string>
             {
-                    {"Web_ECommerce", "Web_ECommerce API"}
+                    {"Web_ECommerce.Admin", "Web_ECommerce Admin API"}
             },
             options =>
             {
-                options.SwaggerDoc("v1", new OpenApiInfo { Title = "Web_ECommerce API", Version = "v1" });
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "Web_ECommerce Admin API", Version = "v1" });
                 options.DocInclusionPredicate((docName, description) => true);
                 options.CustomSchemaIds(type => type.FullName);
             });
@@ -128,7 +128,7 @@ public class Web_ECommerceAdminHttpApiHostModule : AbpModule
         IConfiguration configuration,
         IWebHostEnvironment hostingEnvironment)
     {
-        var dataProtectionBuilder = context.Services.AddDataProtection().SetApplicationName("Web_ECommerce");
+        var dataProtectionBuilder = context.Services.AddDataProtection().SetApplicationName("Web_ECommerce.Admin");
         if (!hostingEnvironment.IsDevelopment())
         {
             var redis = ConnectionMultiplexer.Connect(configuration["Redis:Configuration"]);
@@ -197,11 +197,11 @@ public class Web_ECommerceAdminHttpApiHostModule : AbpModule
         app.UseSwagger();
         app.UseAbpSwaggerUI(options =>
         {
-            options.SwaggerEndpoint("/swagger/v1/swagger.json", "Web_ECommerce API");
+            options.SwaggerEndpoint("/swagger/v1/swagger.json", "Web_ECommerce Admin API");
 
             var configuration = context.GetConfiguration();
             options.OAuthClientId(configuration["AuthServer:SwaggerClientId"]);
-            options.OAuthScopes("Web_ECommerce");
+            options.OAuthScopes("Web_ECommerce.Admin");
         });
 
         app.UseAuditing();
