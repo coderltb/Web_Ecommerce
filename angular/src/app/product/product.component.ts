@@ -37,6 +37,7 @@ constructor(private productService: ProductsService, private productCategoryServ
   }
 
   loadData() {
+    this.toggleBlockUI(true);
     this.productService
       .getListFilter({
         keyword: this.keyword,
@@ -49,20 +50,30 @@ constructor(private productService: ProductsService, private productCategoryServ
         next: (response: PagedResultDto<ProductInListDto>) => {
           this.items = response.items;
           this.totalCount = response.totalCount;
+          this.toggleBlockUI(false);
         },
-        error: () => {},
+        error: () => {
+          this.toggleBlockUI(true);
+        },
       });
   }
 
   loadProductCategories(){
+    this.toggleBlockUI(true);
     this.productCategoryService.getListAll()
-    .subscribe((response: ProductCategoryInListDto[])=>{
-      response.forEach(element=>{
-        this.productCategories.push({
-          value: element.id,
-          name: element.name
-        })
-      });
+    .subscribe({
+      next: (response: ProductCategoryInListDto[]) => {
+        response.forEach(element=>{
+          this.productCategories.push({
+            value: element.id,
+            name: element.name
+          })
+        });
+        this.toggleBlockUI(false);
+      },
+      error: () => {
+        this.toggleBlockUI(true);
+      },
     });
   }
 
@@ -71,5 +82,15 @@ constructor(private productService: ProductsService, private productCategoryServ
     this.skipCount = (event.page -1) * this.maxResultCount;
     this.maxResultCount = event.rows;
     this.loadData();
+  }
+
+  private toggleBlockUI(enabled: boolean){
+    if(enabled == true){
+      this.blockedPanel = true;
+    }else{
+      setTimeout(()=>{
+        this.blockedPanel = false;
+      },1000);
+    }
   }
 }
