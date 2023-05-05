@@ -549,6 +549,9 @@ namespace WebECommerce.Migrations
                         .HasColumnType("nvarchar(40)")
                         .HasColumnName("ConcurrencyStamp");
 
+                    b.Property<int>("EntityVersion")
+                        .HasColumnType("int");
+
                     b.Property<string>("ExtraProperties")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("ExtraProperties");
@@ -732,6 +735,9 @@ namespace WebECommerce.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(false)
                         .HasColumnName("EmailConfirmed");
+
+                    b.Property<int>("EntityVersion")
+                        .HasColumnType("int");
 
                     b.Property<string>("ExtraProperties")
                         .HasColumnType("nvarchar(max)")
@@ -1009,6 +1015,9 @@ namespace WebECommerce.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)")
                         .HasColumnName("DisplayName");
+
+                    b.Property<int>("EntityVersion")
+                        .HasColumnType("int");
 
                     b.Property<string>("ExtraProperties")
                         .HasColumnType("nvarchar(max)")
@@ -1587,6 +1596,9 @@ namespace WebECommerce.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("DeletionTime");
 
+                    b.Property<int>("EntityVersion")
+                        .HasColumnType("int");
+
                     b.Property<string>("ExtraProperties")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("ExtraProperties");
@@ -2121,6 +2133,14 @@ namespace WebECommerce.Migrations
                     b.Property<Guid>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("CategoryName")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("CategorySlug")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
                     b.Property<string>("Code")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -2176,6 +2196,9 @@ namespace WebECommerce.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)");
 
+                    b.Property<double>("SellPrice")
+                        .HasColumnType("float");
+
                     b.Property<string>("SeoMetaDescription")
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
@@ -2193,7 +2216,7 @@ namespace WebECommerce.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<bool>("Visiblity")
+                    b.Property<bool>("Visibility")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");

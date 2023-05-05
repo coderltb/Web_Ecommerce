@@ -10,25 +10,34 @@ export interface CreateUpdateProductDto {
   productType: ProductType;
   sku?: string;
   sortOrder: number;
-  visiblity: boolean;
+  visibility: boolean;
+  sellPrice: number;
+  isActive: boolean;
+  categoryId?: string;
+  seoMetaDescription?: string;
+  description?: string;
+  thumbnailPictureName?: string;
+  thumbnailPictureContent?: string;
+}
+
+export interface ProductDto {
+  manufacturerId?: string;
+  name?: string;
+  code?: string;
+  slug?: string;
+  productType: ProductType;
+  sku?: string;
+  sortOrder: number;
+  visibility: boolean;
   isActive: boolean;
   categoryId?: string;
   seoMetaDescription?: string;
   description?: string;
   thumbnailPicture?: string;
-}
-
-export interface ProductDto {
-  name?: string;
-  code?: string;
-  slug?: string;
-  sortOrder: number;
-  coverPicture?: string;
-  visibility: boolean;
-  isActive: boolean;
-  parentId?: string;
-  seoMetaDescription?: string;
+  sellPrice: number;
   id?: string;
+  categoryName?: string;
+  categorySlug?: string;
 }
 
 export interface ProductInListDto extends EntityDto<string> {
@@ -39,10 +48,12 @@ export interface ProductInListDto extends EntityDto<string> {
   productType: ProductType;
   sku?: string;
   sortOrder: number;
-  visiblity: boolean;
+  visibility: boolean;
   isActive: boolean;
   categoryId?: string;
   thumbnailPicture?: string;
+  categoryName?: string;
+  categorySlug?: string;
 }
 
 export interface ProductListFilterDto extends BaseListFilterDto {

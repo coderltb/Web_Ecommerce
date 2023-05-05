@@ -24,6 +24,12 @@ namespace Web_ECommerce.Configurations.Products
                 .IsUnicode(false)
                 .IsRequired();
 
+            builder.Property(x => x.CategoryName)
+                .HasMaxLength(250);
+
+            builder.Property(x => x.CategorySlug)
+                .HasMaxLength(250);
+
             builder.Property(x => x.SKU)
                .HasMaxLength(50)
                .IsUnicode(false)

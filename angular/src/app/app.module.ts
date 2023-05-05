@@ -17,6 +17,12 @@ import { APP_ROUTE_PROVIDER } from './route.provider';
 import { FeatureManagementModule } from '@abp/ng.feature-management';
 import { AbpOAuthModule } from '@abp/ng.oauth';
 import { AppLayoutModule } from './layout/app.layout.module';
+import { DialogService } from 'primeng/dynamicdialog';
+import { NotificationService } from './shared/Services/notification.service';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { UtilityService } from './shared/Services/utility.service';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ToastModule} from 'primeng/toast';
 
 @NgModule({
   imports: [
@@ -29,17 +35,19 @@ import { AppLayoutModule } from './layout/app.layout.module';
       registerLocaleFn: registerLocale(),
     }),
     AbpOAuthModule.forRoot(),
-   // ThemeSharedModule.forRoot(),
+    ThemeSharedModule.forRoot(),
     AccountConfigModule.forRoot(),
     IdentityConfigModule.forRoot(),
     TenantManagementConfigModule.forRoot(),
     SettingManagementConfigModule.forRoot(),
-    // ThemeLeptonXModule.forRoot(),
-    // SideMenuLayoutModule.forRoot(),
+    ThemeLeptonXModule.forRoot(),
+    SideMenuLayoutModule.forRoot(),
     FeatureManagementModule.forRoot(),
+    ConfirmDialogModule,
+    ToastModule
   ],
   declarations: [AppComponent],
-  providers: [APP_ROUTE_PROVIDER],
+  providers: [APP_ROUTE_PROVIDER, DialogService, NotificationService, MessageService, UtilityService, ConfirmationService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

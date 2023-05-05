@@ -26,7 +26,9 @@ namespace Web_ECommerce.Admin.Products
 
         public int SortOrder { get; set; }
 
-        public bool Visiblity { get; set; }
+        public bool Visibility { get; set; }
+
+        public double SellPrice { get; set; }
 
         public bool IsActive { get; set; }
 
@@ -36,7 +38,8 @@ namespace Web_ECommerce.Admin.Products
 
         public string Description { get; set; }
 
-        public string ThumbnailPicture { get; set; }
+        public string ThumbnailPictureName { get; set; }
+        public string ThumbnailPictureContent { get; set; }
 
     }
 

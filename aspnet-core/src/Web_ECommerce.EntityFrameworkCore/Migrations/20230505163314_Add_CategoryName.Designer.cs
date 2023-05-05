@@ -13,8 +13,8 @@ using Web_ECommerce.EntityFrameworkCore;
 namespace WebECommerce.Migrations
 {
     [DbContext(typeof(Web_ECommerceDbContext))]
-    [Migration("20230314133904_initialize_test")]
-    partial class initialize_test
+    [Migration("20230505163314_Add_CategoryName")]
+    partial class Add_CategoryName
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -552,6 +552,9 @@ namespace WebECommerce.Migrations
                         .HasColumnType("nvarchar(40)")
                         .HasColumnName("ConcurrencyStamp");
 
+                    b.Property<int>("EntityVersion")
+                        .HasColumnType("int");
+
                     b.Property<string>("ExtraProperties")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("ExtraProperties");
@@ -735,6 +738,9 @@ namespace WebECommerce.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(false)
                         .HasColumnName("EmailConfirmed");
+
+                    b.Property<int>("EntityVersion")
+                        .HasColumnType("int");
 
                     b.Property<string>("ExtraProperties")
                         .HasColumnType("nvarchar(max)")
@@ -1012,6 +1018,9 @@ namespace WebECommerce.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)")
                         .HasColumnName("DisplayName");
+
+                    b.Property<int>("EntityVersion")
+                        .HasColumnType("int");
 
                     b.Property<string>("ExtraProperties")
                         .HasColumnType("nvarchar(max)")
@@ -1590,6 +1599,9 @@ namespace WebECommerce.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("DeletionTime");
 
+                    b.Property<int>("EntityVersion")
+                        .HasColumnType("int");
+
                     b.Property<string>("ExtraProperties")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("ExtraProperties");
@@ -2136,6 +2148,14 @@ namespace WebECommerce.Migrations
                         .HasColumnType("nvarchar(40)")
                         .HasColumnName("ConcurrencyStamp");
 
+                    b.Property<string>("CreategoryName")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("CreategorySlug")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2")
                         .HasColumnName("CreationTime");
@@ -2179,6 +2199,9 @@ namespace WebECommerce.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)");
 
+                    b.Property<double>("SellPrice")
+                        .HasColumnType("float");
+
                     b.Property<string>("SeoMetaDescription")
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
@@ -2196,7 +2219,7 @@ namespace WebECommerce.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<bool>("Visiblity")
+                    b.Property<bool>("Visibility")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");

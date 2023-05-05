@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using Web_ECommerce.Admin.Manufacturers;
 using Web_ECommerce.Admin.ProductCategories;
 using Web_ECommerce.Admin.Products;
+using Web_ECommerce.Manufacturers;
 using Web_ECommerce.ProductCategories;
 using Web_ECommerce.Products;
 
@@ -22,5 +24,9 @@ public class Web_ECommerceAdminApplicationAutoMapperProfile : Profile
         CreateMap<Product, ProductDto>();
         CreateMap<Product, ProductInListDto>();
         CreateMap<CreateUpdateProductDto, Product>();
+
+        CreateMap<Manufacturer, ManufacturerDto>();
+        CreateMap<Manufacturer, ManufacturerInListDto>();
+        CreateMap<CreateUpdateManufacturerDto, Manufacturer>();
     }
 }

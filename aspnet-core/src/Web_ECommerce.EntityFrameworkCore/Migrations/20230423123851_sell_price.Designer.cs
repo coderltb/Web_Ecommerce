@@ -13,8 +13,8 @@ using Web_ECommerce.EntityFrameworkCore;
 namespace WebECommerce.Migrations
 {
     [DbContext(typeof(Web_ECommerceDbContext))]
-    [Migration("20230319063222_test3")]
-    partial class test3
+    [Migration("20230423123851_sell_price")]
+    partial class sell_price
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -2178,6 +2178,9 @@ namespace WebECommerce.Migrations
                         .HasMaxLength(50)
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)");
+
+                    b.Property<double>("SellPrice")
+                        .HasColumnType("float");
 
                     b.Property<string>("SeoMetaDescription")
                         .HasMaxLength(250)
