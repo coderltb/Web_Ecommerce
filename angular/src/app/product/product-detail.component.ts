@@ -57,14 +57,27 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   };
 
  ngOnDestroy(): void {
-    if (this.ref) {
-        this.ref.close();
-      }
-      this.ngUnsubscribe.next();
-      this.ngUnsubscribe.complete();
+  if (this.ref) {
+    this.ref.close();
+  }
+  this.ngUnsubscribe.next();
+  this.ngUnsubscribe.complete();
 
   }
 
+  getNewSuggestionCode() {
+    this.productService
+      .getSuggestNewCode()
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe({
+        next: (response: string) => {
+          this.form.patchValue({
+            code: response,
+          });
+        }
+      });
+  }
+  
   ngOnInit(): void {
     this.buildForm();
     this.loadProductTypes();
@@ -76,6 +89,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   }
 
   initFormData() {
+
     //Load data to form
     var productCategories = this.productCategoryService.getListAll();
     var manufacturers = this.manufacturerService.getListAll();
@@ -105,6 +119,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
           });
           //Load edit data to form
           if (this.utilService.isEmpty(this.config.data?.id) == true) {
+            this.getNewSuggestionCode();
             this.toggleBlockUI(false);
           } else {
             this.loadFormDetails(this.config.data?.id);
@@ -205,17 +220,18 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     });
   }
 
-  loadThumbnail(fileName: string){
-    this.productService.getThumbnailImage(fileName)
-    .pipe(takeUntil(this.ngUnsubscribe))
-    .subscribe({
-      next: (response: string) => {
-        var fileExt = this.selectedEntity.thumbnailPicture?.split('.').pop();
-        this.thumbnailImage = this.sanitizer.bypassSecurityTrustResourceUrl(
-          `data:image/${fileExt};base64, ${response}`
-        );
-      },
-    });
+  loadThumbnail(fileName: string) {
+    this.productService
+      .getThumbnailImage(fileName)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe({
+        next: (response: string) => {
+          var fileExt = this.selectedEntity.thumbnailPicture?.split('.').pop();
+          this.thumbnailImage = this.sanitizer.bypassSecurityTrustResourceUrl(
+            `data:image/${fileExt};base64, ${response}`
+          );
+        },
+      });
   }
 
   onFileChange(event){

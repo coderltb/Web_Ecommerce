@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Volo.Abp.EntityFrameworkCore;
 using Web_ECommerce.EntityFrameworkCore;
@@ -12,9 +13,11 @@ using Web_ECommerce.EntityFrameworkCore;
 namespace WebECommerce.Migrations
 {
     [DbContext(typeof(Web_ECommerceDbContext))]
-    partial class Web_ECommerceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230507120435_AddIdentitySettingTable")]
+    partial class AddIdentitySettingTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

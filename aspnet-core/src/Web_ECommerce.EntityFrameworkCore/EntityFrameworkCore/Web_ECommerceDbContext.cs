@@ -12,6 +12,7 @@ using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
+using Web_ECommerce.Configurations.IdentitySettings;
 using Web_ECommerce.Configurations.Inventories;
 using Web_ECommerce.Configurations.InventoryTickets;
 using Web_ECommerce.Configurations.Manufacturers;
@@ -20,6 +21,7 @@ using Web_ECommerce.Configurations.ProductAttributes;
 using Web_ECommerce.Configurations.ProductCategories;
 using Web_ECommerce.Configurations.Products;
 using Web_ECommerce.Configurations.Promotions;
+using Web_ECommerce.IdentitySettings;
 using Web_ECommerce.Inventories;
 using Web_ECommerce.InventoryTickets;
 using Web_ECommerce.Manufacturers;
@@ -94,6 +96,7 @@ public class Web_ECommerceDbContext :
     public DbSet<PromotionUsageHistory> PromotionUsageHistories { get; set; }
 
     #endregion
+    public DbSet<IdentitySetting> IdentitySettings { get; set; }
 
     public Web_ECommerceDbContext(DbContextOptions<Web_ECommerceDbContext> options)
         : base(options)
@@ -157,5 +160,6 @@ public class Web_ECommerceDbContext :
         builder.ApplyConfiguration(new PromotionManufacturerConfiguration());
         builder.ApplyConfiguration(new PromotionProductConfiguration());
         builder.ApplyConfiguration(new PromotionUsageHistoryConfiguration());
+        builder.ApplyConfiguration(new IdentitySettingConfiguration());
     }
 }

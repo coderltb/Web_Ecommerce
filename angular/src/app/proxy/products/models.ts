@@ -11,8 +11,8 @@ export interface CreateUpdateProductDto {
   sku?: string;
   sortOrder: number;
   visibility: boolean;
-  sellPrice: number;
   isActive: boolean;
+  sellPrice: number;
   categoryId?: string;
   seoMetaDescription?: string;
   description?: string;
