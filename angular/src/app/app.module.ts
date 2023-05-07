@@ -23,6 +23,9 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { UtilityService } from './shared/Services/utility.service';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ToastModule} from 'primeng/toast';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { GlobalHttpInterceptorService } from './shared/Interceptors/error-handler.interceptor';
+import { TokenInterceptor } from './shared/Interceptors/token.interceptor';
 
 @NgModule({
   imports: [
@@ -47,7 +50,18 @@ import {ToastModule} from 'primeng/toast';
     ToastModule
   ],
   declarations: [AppComponent],
-  providers: [APP_ROUTE_PROVIDER, DialogService, NotificationService, MessageService, UtilityService, ConfirmationService],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: GlobalHttpInterceptorService,
+      multi: true
+    }
+    ,APP_ROUTE_PROVIDER, DialogService, NotificationService, MessageService, UtilityService, ConfirmationService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

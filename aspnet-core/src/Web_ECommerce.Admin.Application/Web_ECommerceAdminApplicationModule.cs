@@ -1,5 +1,7 @@
 ﻿using Volo.Abp.Account;
 using Volo.Abp.AutoMapper;
+using Volo.Abp.BlobStoring;
+using Volo.Abp.BlobStoring.FileSystem;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.FluentValidation;
 using Volo.Abp.Identity;
@@ -18,7 +20,8 @@ namespace Web_ECommerce.Admin;
     typeof(AbpPermissionManagementApplicationModule),
     typeof(AbpTenantManagementApplicationModule),
     typeof(AbpFeatureManagementApplicationModule),
-    typeof(AbpSettingManagementApplicationModule)
+    typeof(AbpSettingManagementApplicationModule),
+    typeof(AbpBlobStoringFileSystemModule)
     )]
 public class Web_ECommerceAdminApplicationModule : AbpModule
 {
@@ -27,6 +30,17 @@ public class Web_ECommerceAdminApplicationModule : AbpModule
         Configure<AbpAutoMapperOptions>(options =>
         {
             options.AddMaps<Web_ECommerceAdminApplicationModule>();
+        });
+
+        Configure<AbpBlobStoringOptions>(options =>
+        {
+            options.Containers.ConfigureDefault(container =>
+            {
+                container.UseFileSystem(fileSystem =>
+                {
+                    fileSystem.BasePath = "D:\\Learning_Code\\Phát triển Web App với .NET 6 (ABP Framework & Angular)\\Web_Ecommerce\\aspnet-core\\web-ecommerce";
+                });
+            });
         });
     }
 }

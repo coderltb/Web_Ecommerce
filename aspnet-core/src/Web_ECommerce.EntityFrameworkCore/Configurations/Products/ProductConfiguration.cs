@@ -15,32 +15,32 @@ namespace Web_ECommerce.Configurations.Products
                 .IsRequired();
 
             builder.Property(x => x.Code)
-                 .HasMaxLength(50)
-                 .IsUnicode(false)
-                 .IsRequired();
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .IsRequired();
 
             builder.Property(x => x.Slug)
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .IsRequired();
 
+            builder.Property(x => x.SKU)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .IsRequired();
+
+
+            builder.Property(x => x.ThumbnailPicture)
+                .HasMaxLength(250);
+
+            builder.Property(x => x.SeoMetaDescription)
+                .HasMaxLength(250);
+
             builder.Property(x => x.CategoryName)
                 .HasMaxLength(250);
 
             builder.Property(x => x.CategorySlug)
                 .HasMaxLength(250);
-
-            builder.Property(x => x.SKU)
-               .HasMaxLength(50)
-               .IsUnicode(false)
-               .IsRequired();
-
-
-            builder.Property(x => x.ThumbnailPicture)
-               .HasMaxLength(250);
-
-            builder.Property(x => x.SeoMetaDescription)
-             .HasMaxLength(250);
         }
     }
 }
