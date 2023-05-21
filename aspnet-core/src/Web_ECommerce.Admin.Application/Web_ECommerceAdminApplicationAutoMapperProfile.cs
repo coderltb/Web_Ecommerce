@@ -1,10 +1,15 @@
 ﻿using AutoMapper;
+using Volo.Abp.Identity;
 using Web_ECommerce.Admin.Manufacturers;
+using Web_ECommerce.Admin.ProductAttributes;
 using Web_ECommerce.Admin.ProductCategories;
 using Web_ECommerce.Admin.Products;
+using Web_ECommerce.Admin.Roles;
 using Web_ECommerce.Manufacturers;
+using Web_ECommerce.ProductAttributes;
 using Web_ECommerce.ProductCategories;
 using Web_ECommerce.Products;
+using Web_ECommerce.Roles;
 
 namespace Web_ECommerce.Admin;
 
@@ -28,5 +33,28 @@ public class Web_ECommerceAdminApplicationAutoMapperProfile : Profile
         CreateMap<Manufacturer, ManufacturerDto>();
         CreateMap<Manufacturer, ManufacturerInListDto>();
         CreateMap<CreateUpdateManufacturerDto, Manufacturer>();
+
+
+        //Product attribute
+        CreateMap<ProductAttribute, ProductAttributeDto>();
+        CreateMap<ProductAttribute, ProductAttributeInListDto>();
+        CreateMap<CreateUpdateProductAttributeDto, ProductAttribute>();
+
+
+        
+        //Roles
+        CreateMap<IdentityRole, RoleDto>().ForMember(x => x.Description,
+            map => map.MapFrom(x => x.ExtraProperties.ContainsKey(RoleConsts.DescriptionFieldName)
+                ?
+                x.ExtraProperties[RoleConsts.DescriptionFieldName]
+                :
+                null));
+        CreateMap<IdentityRole, RoleInListDto>().ForMember(x => x.Description,
+            map => map.MapFrom(x => x.ExtraProperties.ContainsKey(RoleConsts.DescriptionFieldName)
+                ?
+                x.ExtraProperties[RoleConsts.DescriptionFieldName]
+                :
+                null));
+        CreateMap<CreateUpdateRoleDto, IdentityRole>();
     }
 }

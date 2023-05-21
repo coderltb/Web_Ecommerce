@@ -21,11 +21,14 @@ import { ModuleSharedModule } from '../shared/Modules/module-shared/module-share
 import { BadgeModule } from 'primeng/badge';
 import {ImageModule} from 'primeng/image';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import { CalendarModule } from 'primeng/calendar';
+import { ProductAttributeComponent } from './product-attribute.component';
 
 @NgModule({
   declarations: [
     ProductComponent,
-    ProductDetailComponent
+    ProductDetailComponent,
+    ProductAttributeComponent
   ],
   imports: [
     CommonModule,
@@ -47,10 +50,12 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
     ModuleSharedModule,
     BadgeModule,
     ImageModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    CalendarModule
   ],
   entryComponents:[
-    ProductDetailComponent
+    ProductDetailComponent,
+    ProductAttributeComponent
   ]
 })
 export class ProductModule { }

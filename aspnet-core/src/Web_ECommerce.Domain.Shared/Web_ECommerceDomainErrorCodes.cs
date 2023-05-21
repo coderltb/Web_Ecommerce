@@ -8,4 +8,10 @@ public static class Web_ECommerceDomainErrorCodes
 
     public const string ProductSKUAlreadyExists = "Web_ECommerce:ProductSKUAlreadyExists";
     public const string ProductIsNotExists = "Web_ECommerce:ProductIsNotExists";
+
+    public const string ProductAttributeIdIsNotExists = "Web_ECommerce:ProductAttributeIdIsNotExists";
+
+    public const string ProductAttributeValueIsNotValid = "Web_ECommerce:ProductAttributeValueIsNotValid";
+
+    public const string RoleNameAlreadyExists = "Web_ECommerce:RoleNameAlreadyExists";
 }
