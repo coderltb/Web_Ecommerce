@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
 using Volo.Abp.Identity;
-using Web_ECommerce.Admin.Manufacturers;
-using Web_ECommerce.Admin.ProductAttributes;
-using Web_ECommerce.Admin.ProductCategories;
-using Web_ECommerce.Admin.Products;
-using Web_ECommerce.Admin.Roles;
+using Web_ECommerce.Admin.Catalog.Manufacturers;
+using Web_ECommerce.Admin.Catalog.ProductAttributes;
+using Web_ECommerce.Admin.Catalog.ProductCategories;
+using Web_ECommerce.Admin.Catalog.Products;
+using Web_ECommerce.Admin.System.Roles;
+using Web_ECommerce.Admin.System.Users;
 using Web_ECommerce.Manufacturers;
 using Web_ECommerce.ProductAttributes;
 using Web_ECommerce.ProductCategories;
@@ -56,5 +57,9 @@ public class Web_ECommerceAdminApplicationAutoMapperProfile : Profile
                 :
                 null));
         CreateMap<CreateUpdateRoleDto, IdentityRole>();
+
+        //User
+        CreateMap<IdentityUser, UserDto>();
+        CreateMap<IdentityUser, UserInListDto>();
     }
 }
