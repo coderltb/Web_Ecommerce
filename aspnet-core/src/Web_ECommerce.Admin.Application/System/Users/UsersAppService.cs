@@ -4,8 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using AutoMapper.Internal.Mappers;
+using Volo.Abp.Application.Dtos;
+using Volo.Abp.Application.Services;
+using Volo.Abp.Domain.Entities;
+using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Identity;
+using Volo.Abp.Uow;
+using Volo.Abp;
+using Microsoft.AspNetCore.Authorization;
+using Polly;
+
 namespace Web_ECommerce.Admin.System.Users
 {
+    [Authorize(IdentityPermissions.Users.Default, Policy = "AdminOnly")]
       public class UsersAppService : CrudAppService<IdentityUser, UserDto, Guid, PagedResultRequestDto,
                         CreateUserDto, UpdateUserDto>, IUsersAppService
     {
@@ -15,14 +27,19 @@ namespace Web_ECommerce.Admin.System.Users
             IdentityUserManager identityUserManager) : base(repository)
         {
             _identityUserManager = identityUserManager;
+            GetPolicyName = IdentityPermissions.Users.Default;
+            GetListPolicyName = IdentityPermissions.Users.Default;
+            CreatePolicyName = IdentityPermissions.Users.Create;
+            UpdatePolicyName = IdentityPermissions.Users.Update;
+            DeletePolicyName = IdentityPermissions.Users.Delete;
         }
-
+        [Authorize(IdentityPermissions.Users.Delete)]
         public async Task DeleteMultipleAsync(IEnumerable<Guid> ids)
         {
             await Repository.DeleteManyAsync(ids);
             await UnitOfWorkManager.Current.SaveChangesAsync();
         }
-
+        [Authorize(IdentityPermissions.Users.Delete)]
         public async Task<List<UserInListDto>> GetListAllAsync(string filterKeyword)
         {
             var query = await Repository.GetQueryableAsync();
@@ -36,7 +53,7 @@ namespace Web_ECommerce.Admin.System.Users
             var data = await AsyncExecuter.ToListAsync(query);
             return ObjectMapper.Map<List<IdentityUser>, List<UserInListDto>>(data);
         }
-
+        [Authorize(IdentityPermissions.Users.Default)]
         public  async Task<PagedResultDto<UserInListDto>> GetListWithFilterAsync(BaseListFilterDto input)
         {
             var query = await Repository.GetQueryableAsync();
@@ -57,7 +74,7 @@ namespace Web_ECommerce.Admin.System.Users
             var users = ObjectMapper.Map<List<IdentityUser>, List<UserInListDto>> (data);
             return new PagedResultDto<UserInListDto>(totalCount, users);
         }
-
+        [Authorize(IdentityPermissions.Users.Create)]
         public async override Task<UserDto> CreateAsync(CreateUserDto input)
         {
             var query = await Repository.GetQueryableAsync();
@@ -76,6 +93,7 @@ namespace Web_ECommerce.Admin.System.Users
             var user = new IdentityUser(userId, input.UserName, input.Email);
             user.Name = input.Name;
             user.Surname = input.Surname;
+            user.SetPhoneNumber(input.PhoneNumber, true);
             var result = await _identityUserManager.CreateAsync(user, input.Password);
             if (result.Succeeded)
             {
@@ -93,7 +111,7 @@ namespace Web_ECommerce.Admin.System.Users
                 throw new UserFriendlyException(errors);
             }
         }
-
+        [Authorize(IdentityPermissions.Users.Update)]
         public async override Task<UserDto> UpdateAsync(Guid id, UpdateUserDto input)
         {
             var user = await _identityUserManager.FindByIdAsync(id.ToString());
@@ -121,7 +139,7 @@ namespace Web_ECommerce.Admin.System.Users
                 throw new UserFriendlyException(errors);
             }
         }
-
+        [Authorize(IdentityPermissions.Users.Default)]
         public async override Task<UserDto> GetAsync(Guid id)
         {
             var user = await _identityUserManager.FindByIdAsync(id.ToString());
@@ -133,6 +151,55 @@ namespace Web_ECommerce.Admin.System.Users
             var roles = await _identityUserManager.GetRolesAsync(user);
             userDto.Roles = roles;
             return userDto;
+        }
+        [Authorize(IdentityPermissions.Users.Update)]
+        public async Task SetPasswordAsync(Guid userId, SetPasswordDto input)
+        {
+            var user = await _identityUserManager.FindByIdAsync(userId.ToString());
+            if (user == null)
+            {
+                throw new EntityNotFoundException(typeof(IdentityUser), userId);
+            }
+            var token = await _identityUserManager.GeneratePasswordResetTokenAsync(user);
+            var result = await _identityUserManager.ResetPasswordAsync(user, token, input.NewPassword);
+            if (!result.Succeeded)
+            {
+                List<Microsoft.AspNetCore.Identity.IdentityError> errorList = result.Errors.ToList();
+                string errors = "";
+
+                foreach (var error in errorList)
+                {
+                    errors = errors + error.Description.ToString();
+                }
+                throw new UserFriendlyException(errors);
+            }
+        }
+        [Authorize(IdentityPermissions.Users.Update)]
+        public async Task AssignRolesAsync(Guid userId, string[] roleNames)
+        {
+            var user = await _identityUserManager.FindByIdAsync(userId.ToString());
+            if (user == null)
+            {
+                throw new EntityNotFoundException(typeof(IdentityUser), userId);
+            }
+            var currentRoles = await _identityUserManager.GetRolesAsync(user);
+            var removedResult = await _identityUserManager.RemoveFromRolesAsync(user, currentRoles);
+            var addedResult = await _identityUserManager.AddToRolesAsync(user, roleNames);
+            if (!addedResult.Succeeded || !removedResult.Succeeded)
+            {
+                List<Microsoft.AspNetCore.Identity.IdentityError> addedErrorList = addedResult.Errors.ToList();
+                List<Microsoft.AspNetCore.Identity.IdentityError> removedErrorList = removedResult.Errors.ToList();
+                var errorList = new List<Microsoft.AspNetCore.Identity.IdentityError>();
+                errorList.AddRange(addedErrorList);
+                errorList.AddRange(removedErrorList);
+                string errors = "";
+
+                foreach (var error in errorList)
+                {
+                    errors = errors + error.Description.ToString();
+                }
+                throw new UserFriendlyException(errors);
+            }
         }
     }
 }
