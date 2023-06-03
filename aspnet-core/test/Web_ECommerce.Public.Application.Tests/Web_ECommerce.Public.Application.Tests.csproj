@@ -1,14 +1,15 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <Import Project="..\..\common.props" />
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <RootNamespace>Web_ECommerce</RootNamespace>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Web_ECommerce.Public</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Web_ECommerce.Admin.Application\Web_ECommerce.Admin.Application.csproj" />
+    <ProjectReference Include="..\..\src\Web_ECommerce.Public.Application\Web_ECommerce.Public.Application.csproj" />
     <ProjectReference Include="..\Web_ECommerce.Domain.Tests\Web_ECommerce.Domain.Tests.csproj" />
   </ItemGroup>
 

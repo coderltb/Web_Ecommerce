@@ -5,20 +5,20 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp;
 
-namespace Web_ECommerce.Admin.HttpApi.Client.ConsoleTestApp;
+namespace Web_ECommerce.Public.HttpApi.Client.ConsoleTestApp;
 
-public class ConsoleTestAppHostedService : IHostedService
+public class Web_ECommerceConsoleTestAppHostedService : IHostedService
 {
     private readonly IConfiguration _configuration;
 
-    public ConsoleTestAppHostedService(IConfiguration configuration)
+    public Web_ECommerceConsoleTestAppHostedService(IConfiguration configuration)
     {
         _configuration = configuration;
     }
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
-        using (var application = await AbpApplicationFactory.CreateAsync<Web_ECommerceConsoleApiClientModule>(options =>
+        using (var application = await AbpApplicationFactory.CreateAsync<PublicConsoleApiClientModule>(options =>
         {
            options.Services.ReplaceConfiguration(_configuration);
            options.UseAutofac();

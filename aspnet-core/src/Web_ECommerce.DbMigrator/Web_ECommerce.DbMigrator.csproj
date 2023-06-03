@@ -34,8 +34,8 @@
 
   <ItemGroup>
     <PackageReference Include="Volo.Abp.Autofac" Version="7.1.1" />
-    <ProjectReference Include="..\Web_ECommerce.Application.Contracts\Web_ECommerce.Application.Contracts.csproj" />
     <ProjectReference Include="..\Web_ECommerce.EntityFrameworkCore\Web_ECommerce.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\Web_ECommerce.Public.Application.Contracts\Web_ECommerce.Public.Application.Contracts.csproj" />
   </ItemGroup>
 
   <ItemGroup>
