@@ -10,7 +10,7 @@ namespace Web_ECommerce.Samples;
  * (like IIdentityUserAppService here).
  * Only test your own application services.
  */
-public class SampleAppServiceTests : Web_ECommerceApplicationTestBase
+public class SampleAppServiceTests : Web_ECommerceAdminApplicationTestBase
 {
     private readonly IIdentityUserAppService _userAppService;
 

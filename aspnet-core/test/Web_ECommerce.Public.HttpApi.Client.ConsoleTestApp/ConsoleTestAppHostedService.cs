@@ -7,11 +7,11 @@ using Volo.Abp;
 
 namespace Web_ECommerce.Public.HttpApi.Client.ConsoleTestApp;
 
-public class Web_ECommerceConsoleTestAppHostedService : IHostedService
+public class ConsoleTestAppHostedService : IHostedService
 {
     private readonly IConfiguration _configuration;
 
-    public Web_ECommerceConsoleTestAppHostedService(IConfiguration configuration)
+    public ConsoleTestAppHostedService(IConfiguration configuration)
     {
         _configuration = configuration;
     }

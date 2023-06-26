@@ -1,6 +1,6 @@
 ﻿namespace Web_ECommerce.Public;
 
-public abstract class Web_ECommercePublicApplicationTestBase : Web_ECommerceTestBase<PublicApplicationTestModule>
+public abstract class PublicApplicationTestBase : Web_ECommerceTestBase<PublicApplicationTestModule>
 {
 
 }

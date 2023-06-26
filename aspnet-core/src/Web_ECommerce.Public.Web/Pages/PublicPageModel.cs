@@ -1,6 +1,5 @@
-﻿
+﻿using Web_ECommerce.Localization;
 using Volo.Abp.AspNetCore.Mvc.UI.RazorPages;
-using Web_ECommerce.Localization;
 
 namespace Web_ECommerce.Public.Web.Pages;
 

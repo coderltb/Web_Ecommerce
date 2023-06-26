@@ -1,7 +1,6 @@
-﻿
+﻿using Web_ECommerce.Localization;
 using Volo.Abp.Authorization.Permissions;
 using Volo.Abp.Localization;
-using Web_ECommerce.Localization;
 
 namespace Web_ECommerce.Public.Permissions;
 

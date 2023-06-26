@@ -7,7 +7,7 @@ namespace Web_ECommerce;
     typeof(Web_ECommerceAdminApplicationModule),
     typeof(Web_ECommerceDomainTestModule)
     )]
-public class Web_ECommerceApplicationTestModule : AbpModule
+public class Web_ECommerceAdminApplicationTestModule : AbpModule
 {
 
 }

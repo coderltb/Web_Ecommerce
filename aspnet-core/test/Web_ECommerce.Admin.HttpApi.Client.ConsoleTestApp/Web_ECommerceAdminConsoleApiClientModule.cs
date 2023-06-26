@@ -13,7 +13,7 @@ namespace Web_ECommerce.Admin.HttpApi.Client.ConsoleTestApp;
     typeof(Web_ECommerceAdminHttpApiClientModule),
     typeof(AbpHttpClientIdentityModelModule)
     )]
-public class Web_ECommerceConsoleApiClientModule : AbpModule
+public class Web_ECommerceAdminConsoleApiClientModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {
