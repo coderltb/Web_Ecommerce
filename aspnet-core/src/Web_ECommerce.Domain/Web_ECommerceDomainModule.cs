@@ -14,6 +14,7 @@ using Volo.Abp.PermissionManagement.Identity;
 using Volo.Abp.PermissionManagement.OpenIddict;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
+using Volo.Abp.VirtualFileSystem;
 
 namespace Web_ECommerce;
 
@@ -34,20 +35,13 @@ public class Web_ECommerceDomainModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        Configure<AbpLocalizationOptions>(options =>
-        {
-       
-            options.Languages.Add(new LanguageInfo("en", "en", "English", "gb"));
-            options.Languages.Add(new LanguageInfo("vi", "vn", "Tiếng Việt"));
-        });
-
         Configure<AbpMultiTenancyOptions>(options =>
         {
             options.IsEnabled = MultiTenancyConsts.IsEnabled;
         });
-
-#if DEBUG
-        context.Services.Replace(ServiceDescriptor.Singleton<IEmailSender, NullEmailSender>());
-#endif
+        Configure<AbpVirtualFileSystemOptions>(options =>
+        {
+            options.FileSets.AddEmbedded<Web_ECommerceDomainModule>("Web_ECommerce");
+        });
     }
 }

@@ -1,10 +1,16 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System;
 using System.Linq;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Volo.Abp.Emailing;
+using Volo.Abp.EventBus.Local;
+using Volo.Abp.TextTemplating;
+using Web_ECommerce.Emailing;
+using Web_ECommerce.Orders.Events;
 using Web_ECommerce.Public.Orders;
 using Web_ECommerce.Public.Web.Extensions;
 using Web_ECommerce.Public.Web.Models;
@@ -13,10 +19,12 @@ namespace Web_ECommerce.Public.Web.Pages.Cart
 {
     public class CheckoutModel : PageModel
     {
-        private readonly IOrdersAppService _ordersAppService;
-        public CheckoutModel(IOrdersAppService ordersAppService)
+          private readonly IOrdersAppService _ordersAppService;
+          private readonly ILocalEventBus _localEventBus;
+        public CheckoutModel(IOrdersAppService ordersAppService, ILocalEventBus localEventBus)
         {
             _ordersAppService = ordersAppService;
+            _localEventBus = localEventBus;
         }
         public List<CartItem> CartItems { get; set; }
 
@@ -59,7 +67,20 @@ namespace Web_ECommerce.Public.Web.Pages.Cart
             CartItems = GetCartItems();
 
             if (order != null)
+            {
+                if (User.Identity.IsAuthenticated)
+                {
+                    var email = User.GetSpecificClaim(ClaimTypes.Email);
+                    await _localEventBus.PublishAsync(new NewOrderCreatedEvent()
+                    {
+                        CustomerEmail = email,
+                        Message = "Create order success"
+                    });
+                }
+
                 CreateStatus = true;
+            }
+
             else
                 CreateStatus = false;
         }

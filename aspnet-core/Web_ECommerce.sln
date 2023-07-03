@@ -69,6 +69,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web_ECommerce.Public.HttpAp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web_ECommerce.Public.Application.Tests", "test\Web_ECommerce.Public.Application.Tests\Web_ECommerce.Public.Application.Tests.csproj", "{13BC21C9-C637-4AE7-8EC3-9AF7F748A46A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web_ECommerce.BackgroundWorkers", "Web_ECommerce.BackgroundWorkers\Web_ECommerce.BackgroundWorkers.csproj", "{957F9F1B-0589-4A5C-9227-DA1676C2E650}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -163,6 +165,10 @@ Global
 		{13BC21C9-C637-4AE7-8EC3-9AF7F748A46A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13BC21C9-C637-4AE7-8EC3-9AF7F748A46A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13BC21C9-C637-4AE7-8EC3-9AF7F748A46A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{957F9F1B-0589-4A5C-9227-DA1676C2E650}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{957F9F1B-0589-4A5C-9227-DA1676C2E650}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{957F9F1B-0589-4A5C-9227-DA1676C2E650}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{957F9F1B-0589-4A5C-9227-DA1676C2E650}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -199,6 +205,7 @@ Global
 		{11534CF5-3DC9-4134-A600-7FBAB3BC0D3E} = {146E7CB7-F67A-4891-99D2-7F1BB1F36A8D}
 		{8D7EC511-7F70-40E8-95AD-D5E92D6E32A7} = {C90524DC-9647-49CC-AE0E-DF1EF3AD50D3}
 		{13BC21C9-C637-4AE7-8EC3-9AF7F748A46A} = {C90524DC-9647-49CC-AE0E-DF1EF3AD50D3}
+		{957F9F1B-0589-4A5C-9227-DA1676C2E650} = {C65EC3AE-62A3-4DDE-B6E8-C7EF63FF1B9C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {28315BFD-90E7-4E14-A2EA-F3D23AF4126F}
